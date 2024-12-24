@@ -3,6 +3,7 @@ const router = express.Router();
 const { body, validationResult } = require('express-validator')
 const userModel = require('../models/user.models');
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 
 
 
@@ -35,7 +36,7 @@ router.get('/login', (req, res) => {
 })
 
 router.post('/login',
-    body('username').trim().isLength({ min: 13 }),
+    body('username').trim().isLength({ min: 6 }),
     body('password').trim().isLength({ min: 5 }), async (req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
@@ -53,6 +54,10 @@ router.post('/login',
         if (!isMatch) {
             return res.status(400).json({ message: "Invalid Credentials" })
         }
+        const token = jwt.sign({ userId: user._id, email: user.email, username: user.username }, process.env.JWT_SECRET, { expiresIn: '1h' })
+
+        res.json(token)
+
     })
 
 module.exports = router;
