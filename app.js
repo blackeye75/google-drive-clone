@@ -1,7 +1,8 @@
 const express = require('express');
 const dotev = require('dotenv');
-const cookieParser = require('cookie-parser');
 dotev.config();
+const cookieParser = require('cookie-parser');
+const appwrite= require('./appwrite.config');
 const connectDB = require('./config/db');
 const userRouter = require('./routes/user.routes');
 const inderRouter= require("./routes/index.routes");
