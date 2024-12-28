@@ -2,7 +2,7 @@ const express = require('express');
 const dotev = require('dotenv');
 dotev.config();
 const cookieParser = require('cookie-parser');
-const appwrite= require('./appwrite.config');
+const appwrite= require('./config/appwrite.config');
 const connectDB = require('./config/db');
 const userRouter = require('./routes/user.routes');
 const inderRouter= require("./routes/index.routes");
